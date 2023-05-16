@@ -57,5 +57,7 @@ read -ra DOCKER_RUN_OPTIONS <<< "${DOCKER_RUN_OPTIONS:-}"
     --mount "type=volume,source=gocache,destination=/gocache" \
     --mount "type=volume,source=cache,destination=/home/.cache" \
     --mount "type=volume,source=crates,destination=/home/.cargo/registry" \
+    -v /opt/cov-analysis-linux64-2022.3.1:/cov-analysis \
+    -v /root/qiming/sdd1/cov-0516:/cov-0516 \
     ${CONDITIONAL_HOST_MOUNTS} \
     -w "${MOUNT_DEST}" "${IMG}" "$@"

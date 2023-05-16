@@ -44,7 +44,7 @@ ifeq "$(origin WITH_LIBCXX)" "undefined"
 WITH_LIBCXX := $(shell ($(CXX) --version | grep ^g++ >/dev/null && echo 0) || echo 1)
 endif
 ifeq "$(WITH_LIBCXX)" "1"
-BAZEL_CONFIG = --config=libc++
+BAZEL_CONFIG = --config=clang
 else
 BAZEL_CONFIG =
 endif
@@ -80,7 +80,7 @@ CENTOS_BAZEL_TEST_TARGETS ?= ${BAZEL_TARGETS} \
 
 build:
 	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && \
-	bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_CURRENT) $(BAZEL_TARGETS)
+	/cov-analysis/bin/cov-build --dir /cov-0516 bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_CURRENT) $(BAZEL_TARGETS)
 
 build_envoy: BAZEL_CONFIG_CURRENT = $(BAZEL_CONFIG_REL)
 build_envoy: BAZEL_TARGETS = //:envoy
